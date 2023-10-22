@@ -2,7 +2,7 @@ import io
 from flask import Flask, request, render_template, Response
 import time
 
-app = Flask(__name)
+app = Flask(__name__)
 
 def generate_graph(graph_type, date_today_month, date_today_day):
     date_today_month = str(date_today_month).zfill(2)
