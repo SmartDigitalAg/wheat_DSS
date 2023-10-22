@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APSIM Scenario Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            text-align: center;
+            padding: 40px;
+        }
+
+        .input-group {
+            margin: 10px 0;
+        }
+
+        label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        input[type="number"] {
+            width: 60px;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .graph-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 400px; /* Adjust the max-height as needed */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>APSIM Scenario Dashboard</h1>
+    <div class="input-group">
+        <label for="graphType">Graph Type:</label>
+        <input type="radio" id="yield_graph" name="graphType" value="yield_graph" checked>
+        <label for="yield_graph">Yield</label>
+        <input type="radio" id="sws_graph" name="graphType" value="sws_graph" >
+        <label for="sws_graph">SWS</label>
+        <input type="radio" id="rain_graph" name="graphType" value="rain_graph">
+        <label for="rain_graph">Rain</label>
+    </div>
+    <div class="input-group">
+        <label for="date_today_month">Month:</label>
+        <input type="number" id="date_today_month" name="date_today_month" min="1" max="12" required>
+    </div>
+    <div class="input-group">
+        <label for="date_today_day">Day:</label>
+        <input type="number" id="date_today_day" name="date_today_day" min="1" max="31" required>
+    </div>
+    <button onclick="generateGraph(getSelectedGraphType())">Generate Graph</button>
+    <div class="graph-container">
+        <img id="graphImage" src="" alt="Graph will be displayed here">
+    </div>
+</div>
+<script>
+    function getSelectedGraphType() {
+        return document.querySelector('input[name="graphType"]:checked').value;
+    }
+
+    function generateGraph(graphType) {
+        const dateTodayMonth = document.getElementById("date_today_month").value;
+        const dateTodayDay = document.getElementById("date_today_day").value;
+        const graphImage = document.getElementById("graphImage");
+
+        // Construct the URL based on the selected graph type
+        const url = `/${graphType}/${dateTodayMonth}/${dateTodayDay}`;
+
+        graphImage.src = url;
+    }
+</script>
+</body>
+</html>
